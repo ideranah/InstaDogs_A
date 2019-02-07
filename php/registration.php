@@ -1,19 +1,22 @@
 <?php 
 
-require ('connexion.php');
 
-$app = new Connexion();
+if (!empty(($_POST['username']) AND ($_POST['password']) AND ($_POST['confirmpassword']))) {
+    require ('connexion.php');
+    $app = new Connexion();
+    
+    $userName = $_POST['username'];
+    $userPassword = $_POST['password'];
 
-$userName = $_POST['username'];
-$userPassword = $_POST['password'];
-$confirmPassword = $_POST['confirmpassword'];
+    $userPassword = password_hash($userPassword,PASSWORD_BCRYPT,['cost'=>9]);
 
-echo "$userName </br> $userPassword </br> $confirmPassword";
+    $newId = $app->insertUser($userName, $userPassword, "2019-02-05");
 
-$newId = $app->insertUser($userName, $userPassword, "2019-02-05");
+    header("Location: /tests/InstaDogs/profil.php?id=$newId", true, 303);
 
-header("Location: /InstaDogs/profil.php?id=$newId", true, 303);
+    exit;
 
-exit;
-
+}else{
+    header("Location: /tests/InstaDogs/inscription.html");
+}
 ?>

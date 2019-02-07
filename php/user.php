@@ -9,6 +9,20 @@ class User {
     public function getUserName() {
         return $this->userName;
     }
+
+    
+    public function getUserPassword()
+    {
+        return $this->userPassword;
+    }
+
+    /**
+     * Get the value of id
+     */ 
+    public function getId()
+    {
+        return $this->id;
+    }
 }
 
 ?>

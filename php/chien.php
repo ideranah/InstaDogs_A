@@ -7,6 +7,9 @@ class Dog {
     private $dogName;
     private $nickname;
     private $gender;
+    private $breed;
+    private $crossed;
+    private $profilePic;
     private $article;
 
     public function getDogId() {
@@ -16,6 +19,14 @@ class Dog {
         return $this->dogName;
     }
 
+
+    /**
+     * Get the value of profilePic
+     */ 
+    public function getProfilePic()
+    {
+        return $this->profilePic;
+    }
 }
 
 ?>

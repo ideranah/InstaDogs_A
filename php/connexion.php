@@ -59,6 +59,33 @@ class Connexion {
 			return $id;
     }
 
+    public function getUserByUserName($userName){
+        $rp = $this->connexion->prepare("SELECT * FROM user WHERE userName=:userName");
+        $rp->execute(array('userName'=>"$userName"));
+        $user=$rp->fetchObject("User");
+
+        return $user;
+    }
+
+    public function insertLastConnexionByUserName($userName,$lastLogin){
+        $rp = $this->connexion->prepare("UPDATE user SET latestLogin = :lastLogin WHERE userName =:userName");
+        $rp->execute(array('lastLogin'=>"$lastLogin",'userName'=>"$userName"));
+    }
+
+    public function insertDog($userId,$age,$dogName,$nickname,$gender,$breed,$crossed,$profilePic){
+        $rp= $this->connexion->prepare ("INSERT INTO Dog (userId, age, dogName, nickname, gender, breed, crossed, profilePic) 
+                                        VALUES (:userId,:age,:dogName,:nickname,:gender,:breed,:crossed,:profilePic)" );
+        
+        $rp->execute(array("userId"=>$userId,"age"=>$age,"dogName"=>$dogName,"nickname"=>$nickname,"gender"=>$gender,"breed"=>$breed,"crossed"=>$crossed,"profilePic"=>$profilePic));
+    }
+
+    public function getDogByUserId($userId){
+        $rp=$this->connexion->prepare("SELECT * FROM dog WHERE userId=:userId");
+        $rp->execute(array('userId'=>$userId));
+        $dogs=$rp->fetchAll(PDO::FETCH_CLASS, "Dog");
+        return $dogs;
+    }
+
 }
 
 
